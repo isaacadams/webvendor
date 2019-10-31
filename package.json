@@ -1,0 +1,23 @@
+{
+  "name": "webpackager",
+  "version": "0.0.1",
+  "description": "a simple web package dependency helper that simplifies the process of adding project dependencies like bootstrap or fontawesome",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@isaacadams/nodejs-utils": "0.2.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-terser": "1.2.0",
+    "gulp-strip-comments": "2.5.2",
+    "rimraf": "3.0.0",
+    "glob": "7.1.5",
+    "event-stream": "4.0.1",
+    "merge-stream": "2.0.0"
+  },
+  "author": "Isaac Adams",
+  "license": "MIT"
+}
