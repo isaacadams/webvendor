@@ -49,3 +49,8 @@ dist/index.html
     <button class="btn btn-primary">I am bootstrapped!</button>
 </body>
 ```
+
+## Future Plans
+
+- inject references to installed web vendors automatically
+- ability to add packages that aren't pre-defined
