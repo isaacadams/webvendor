@@ -12,8 +12,8 @@ class FileFetcher {
      * @param {PackageDefinition} pkg 
      */
     fetchPackage(pkg){
-        let pkgFolder = this.pkgJson.searchNodeModules(pkg.name).replace(/\\/g, '/');
-        let pat = `${pkgFolder}/{${pkg.files.join(",")}}`;
+        let pkgFolder = cleanPaths(this.pkgJson.searchNodeModules(pkg.name));
+        let pat = `${pkgFolder}/{${cleanPaths(pkg.files.join(","))}}`;
         console.log(pkg.name);
         console.log(pat);
         return new Promise((res, rej) => {
@@ -26,6 +26,10 @@ class FileFetcher {
                 });
         });
     }
+}
+
+function cleanPaths(path){
+    return path.replace(/\\/g, '/');
 }
 
 module.exports = FileFetcher;

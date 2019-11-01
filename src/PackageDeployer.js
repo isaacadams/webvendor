@@ -1,4 +1,5 @@
 let { fs, path } = require('./../libraries'),
+    { PackageDefinition } = require('./models/models.module'),
     { FileFetcher } = require('./fetchers/fetchers.module');
 
 class PackageDeployer {
@@ -13,6 +14,13 @@ class PackageDeployer {
         fetcher
             .fetchPackage(pkg)
             .then(mainPkgFiles => {
+                /**
+                 * most files will output directly to the package directory
+                 * however, sometimes they need to be outputted to a subdirectory
+                 * because of internal / relative references
+                 */
+
+                
                 mainPkgFiles.map(f => this.copy(f, pkgDirectory));
             });
         if (pkg.dependencies.length > 0)
