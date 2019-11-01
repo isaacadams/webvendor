@@ -1,4 +1,4 @@
-let { fs, path } = require('./../libraries'),
+let { fs, path, rimraf } = require('./../libraries'),
     { PackageDefinition } = require('./models/models.module'),
     { FileFetcher } = require('./fetchers/fetchers.module');
 
@@ -10,22 +10,35 @@ class PackageDeployer {
      */
     deploy(pkg, output) {
         let pkgDirectory = path.resolve(output, pkg.name);
-        let fetcher = new FileFetcher();
-        fetcher
-            .fetchPackage(pkg)
-            .then(filesSystem => {
-                /**
-                 * most files will output directly to the package directory
-                 * however, sometimes they need to be outputted to a subdirectory
-                 * because of internal / relative references
-                 */                
-                filesSystem.map(s => {
-                    let pathToOutput = path.resolve(pkgDirectory, s.folder);
-                    s.files.map(f => this.copy(f, pathToOutput));
+
+        if(!fs.existsSync(pkgDirectory)){
+            performDeployment();
+            return;    
+        }
+
+        // if the directory pre-exists, then clean it before deploying
+        rimraf(pkgDirectory, e => {
+            performDeployment();
+        });
+
+        function performDeployment(){
+            let fetcher = new FileFetcher();
+            fetcher
+                .fetchPackage(pkg)
+                .then(filesSystem => {
+                    /**
+                     * most files will output directly to the package directory
+                     * however, sometimes they need to be outputted to a subdirectory
+                     * because of internal / relative references
+                     */                
+                    filesSystem.map(s => {
+                        let pathToOutput = path.resolve(pkgDirectory, s.folder);
+                        s.files.map(f => this.copy(f, pathToOutput));
+                    });
                 });
-            });
-        if (pkg.dependencies.length > 0)
-            pkg.dependencies.map(d => this.deploy(d, pkgDirectory));
+            if (pkg.dependencies.length > 0)
+                pkg.dependencies.map(d => this.deploy(d, pkgDirectory));
+        }
     }
     /**
      * Copy a file from one directory to another
