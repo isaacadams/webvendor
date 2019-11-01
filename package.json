@@ -8,15 +8,16 @@
   },
   "devDependencies": {
     "@isaacadams/nodejs-utils": "0.2.0",
+    "@types/node": "^12.12.3",
+    "event-stream": "4.0.1",
+    "glob": "7.1.5",
     "gulp": "^4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-terser": "1.2.0",
     "gulp-strip-comments": "2.5.2",
-    "rimraf": "3.0.0",
-    "glob": "7.1.5",
-    "event-stream": "4.0.1",
-    "merge-stream": "2.0.0"
+    "gulp-terser": "1.2.0",
+    "merge-stream": "2.0.0",
+    "rimraf": "3.0.0"
   },
   "author": "Isaac Adams",
   "license": "MIT"
