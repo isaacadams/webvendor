@@ -6,6 +6,10 @@ a lightweight task oriented manager that will manage // install web vendors into
 
 The following will programatically pull the neccasary files from `node_modules` and apply them to whatever output directory that is set in the options.
 
+First run the following `npm i bootstrap font-awesome`
+
+Then configure a gulp task (or however you perform build tasks) similar to the following:
+
 gulpfile.js
 ```javascript
 let webvendor = require('@isaacadams/webvendor');
