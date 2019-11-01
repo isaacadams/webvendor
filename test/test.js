@@ -1,10 +1,11 @@
-let webpackager = require('./../src/main'),
-    { path } = require('./../libraries');
+let webpackager = require('@isaacadams/webvendor'),
+    path = require('path');
 
 let opts = {
     html: "Hello World",
-    output: path.resolve(process.cwd(), "test/wwwroot")
+    output: path.resolve(process.cwd(), "wwwroot")
 };
 webpackager(opts)
     .addBootstrap()
+    .addFontAwesome()
     .deploy();
