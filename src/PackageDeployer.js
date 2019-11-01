@@ -13,15 +13,16 @@ class PackageDeployer {
         let fetcher = new FileFetcher();
         fetcher
             .fetchPackage(pkg)
-            .then(mainPkgFiles => {
+            .then(filesSystem => {
                 /**
                  * most files will output directly to the package directory
                  * however, sometimes they need to be outputted to a subdirectory
                  * because of internal / relative references
-                 */
-
-                
-                mainPkgFiles.map(f => this.copy(f, pkgDirectory));
+                 */                
+                filesSystem.map(s => {
+                    let pathToOutput = path.resolve(pkgDirectory, s.folder);
+                    s.files.map(f => this.copy(f, pathToOutput));
+                });
             });
         if (pkg.dependencies.length > 0)
             pkg.dependencies.map(d => this.deploy(d, pkgDirectory));

@@ -1,6 +1,4 @@
-// bootstrap depends on popper.js and jquery
-
-let { PackageDefinition } = require('../models/models.module');
+let PackageBuilder = require('../builders/packageBuilder');
 
 /**
  * Bootstrap dependency information
@@ -13,13 +11,14 @@ let { PackageDefinition } = require('../models/models.module');
 class BootstrapPackage {
     constructor() {
         this.repository = 'https://github.com/twbs/bootstrap';
-        this.definition = new PackageDefinition(
-            'bootstrap', 
-            [
-                "**/bootstrap.min.css",
-                "**/bootstrap.bundle.min.js"
-            ]
-        );
+        
+        this.definition = 
+            new PackageBuilder('bootstrap')
+                .addFiles([
+                    "**/bootstrap.min.css",
+                    "**/bootstrap.bundle.min.js"
+                ])
+                .build();
 
         this.api = {
             includeJquery: function() {

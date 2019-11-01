@@ -1,4 +1,4 @@
-let { PackageDefinition } = require('../models/models.module');
+let PackageBuilder = require('../builders/packageBuilder');
 
 /**
  * Fontawesome dependency information
@@ -9,16 +9,12 @@ let { PackageDefinition } = require('../models/models.module');
 class FontAwesomePackage {
     constructor() {
         this.repository = 'https://github.com/FortAwesome/Font-Awesome';
-        this.definition = new PackageDefinition(
-            'font-awesome', 
-            [
-                /* "all.css", // could be replaced with all.js
-                "/svgs/*",
-                "/webfonts/*" */
-                "**/font-awesome.min.css",
-                "**/fonts/*"
-            ]
-        );
+        
+        this.definition = 
+            new PackageBuilder('font-awesome')
+                .addFiles(["**/font-awesome.min.css"])
+                .addFiles(["**/fonts/*"], "fonts")
+                .build();
 
         this.api = {}
     }
