@@ -1,5 +1,5 @@
 let BootstrapPackage = require('./packages/bootstrap'),
-    fontawesome = require('./packages/fontawesome'),
+    FontAwesomePackage = require('./packages/fontawesome'),
     OptionsValidator = require('./OptionsValidator'),
     { PackageDefinition } = require('./models/models.module'),
     PackageDeployer = require('./PackageDeployer');
@@ -36,7 +36,9 @@ module.exports = function(options) {
             return wp;
         },
         addFontAwesome: function(){
-
+            let fa = new FontAwesomePackage();
+            wp.add(fa.definition);
+            return wp;
         }
     };
 };
