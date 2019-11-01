@@ -4,9 +4,9 @@ let BootstrapPackage = require('./packages/bootstrap'),
     { PackageDefinition } = require('./models/models.module'),
     PackageDeployer = require('./PackageDeployer');
 
-class webpackager {
-    constructor(options) {        
-        this.opts = new OptionsValidator().process(options);
+class WebVendorLogic {
+    constructor(options) {
+        this.opts = new OptionsValidator().process(options);        
         /** @type {PackageDefinition[]} */
         this.packages = [];
     }
@@ -18,27 +18,33 @@ class webpackager {
     deploy() {
         let publicOutputFolder = this.opts.output;
         let deployer = new PackageDeployer();
-
         this.packages.map(p => {
             deployer.deploy(p, publicOutputFolder);
         });
     }
 }
 
-module.exports = function(options) {
-    let wp = new webpackager(options);
+module.exports = function webvendor(options) {
+    class WebVendorAPI {
 
-    return {
-        addBootstrap: function(){
+        addBootstrap (){
             let bs = new BootstrapPackage();
-            wp.add(bs.definition);
+            wpl.add(bs.definition);
             //return bs.api;
-            return wp;
-        },
-        addFontAwesome: function(){
-            let fa = new FontAwesomePackage();
-            wp.add(fa.definition);
-            return wp;
+            return this;
         }
-    };
+        
+        addFontAwesome () {
+            let fa = new FontAwesomePackage();
+            wpl.add(fa.definition);
+            return this;
+        }
+    
+        deploy() {
+            wpl.deploy();
+        }
+    }
+
+    let wpl = new WebVendorLogic(options);
+    return new WebVendorAPI();
 };
