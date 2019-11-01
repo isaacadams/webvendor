@@ -1,20 +1,35 @@
 let { fs, path, glob } = require('./../libraries'),
-    { PackageJson } = require("./PackageJson");
-    //{ Options } = require('./models/Options'),
-    //{ PackageDefinition } = require('./models/PackageDefinition');
-
+    { PackageJson } = require("./PackageJson"),
+    { PackageDefinition } = require('./models/PackageDefinition');
 
 class FileFetcher {
+    constructor() {
+        this.pkgJson = new PackageJson();
+    }
+
     /**
-     * 
-     * @param {Options} opts 
+     * fetch the files defined in the package definition
+     * @param {PackageDefinition} pkg 
      */
-    constructor(opts) {
-        this.opts = opts;
+    fetchPackage(pkg){
+        let pkgFolder = this.pkgJson.searchNodeModules(pkg.name).replace(/\\/g, '/');
+        let pat = `${pkgFolder}/**/*(${pkg.files.join("|")})`;
+        console.log(pkg.name);
+        console.log(pat);
+        return new Promise((res, rej) => {
+            glob(pat, (e, files) => {
+                if(e) rej(e);
+                res(files);
+            });
+        });
     }
-
-    fetchPackage(){
-
-    }
-
 }
+
+function test(){
+    let g = new PackageDefinition('glob', ['*.js', 'README.md', 'change*']);
+    new FileFetcher()
+        .fetchPackage(g)
+        .then(f => console.log(f));
+}
+
+//test();

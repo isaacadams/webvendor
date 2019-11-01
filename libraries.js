@@ -3,7 +3,6 @@ module.exports = {
     path: require('path'),
     process: require('child_process'),
     gulp: require('gulp'),
-    babel: require("gulp-babel"),
     concat: require('gulp-concat'),
     terser: require('gulp-terser'),
     rimraf: require("rimraf"),
