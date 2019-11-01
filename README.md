@@ -52,5 +52,6 @@ dist/index.html
 
 ## Future Plans
 
-- inject references to installed web vendors automatically
+- inject html references for installed web vendors into index.html automatically
 - ability to add packages that aren't pre-defined
+- ability to optionally include jquery as a bootstrap dependency
