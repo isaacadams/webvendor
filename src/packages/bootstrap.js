@@ -1,6 +1,6 @@
 // bootstrap depends on popper.js and jquery
 
-let { PackageDefinition } = require('../models/PackageDefinition');
+let { PackageDefinition } = require('../models/models.module');
 
 /**
  * Bootstrap dependency information

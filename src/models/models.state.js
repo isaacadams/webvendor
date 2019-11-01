@@ -1,4 +1,4 @@
-class VendorStateModel {
+class State {
     constructor() {
         /** @type {boolean} states whether project has a package.json */
         this.hasPackageJson = true;
@@ -6,3 +6,5 @@ class VendorStateModel {
         this.packages = [];
     }
 }
+
+module.exports = State;

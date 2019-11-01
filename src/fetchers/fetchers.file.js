@@ -1,6 +1,6 @@
-let { fs, path, glob } = require('./../libraries'),
-    { PackageJson } = require("./PackageJson"),
-    { PackageDefinition } = require('./models/PackageDefinition');
+let { fs, path, glob } = require('./../../libraries'),
+    { PackageJson } = require("./../PackageJson"),
+    { PackageDefinition } = require('../models/models.module');
 
 class FileFetcher {
     constructor() {
@@ -24,6 +24,8 @@ class FileFetcher {
         });
     }
 }
+
+module.exports = FileFetcher;
 
 function test(){
     let g = new PackageDefinition('glob', ['*.js', 'README.md', 'change*']);

@@ -9,14 +9,4 @@ class OptionsMetadata {
     }
 }
 
-class Options {
-    constructor(html, output) {
-        this.html = html;
-        this.output = output;
-    }
-}
-
-module.exports = {
-    OptionsMetadata: OptionsMetadata,
-    Options: Options
-};
+module.exports = OptionsMetadata;

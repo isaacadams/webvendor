@@ -1,4 +1,4 @@
-let { OptionsMetadata, Options } = require("./models/Options");
+let { OptionsMetadata, Options } = require('../models/models.module');
 
 class OptionsValidator {
     constructor() {

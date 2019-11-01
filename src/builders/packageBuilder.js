@@ -1,4 +1,4 @@
-const { PackageDefinition } = require("./models/PackageDefinition");
+let { PackageDefinition } = require('../models/models.module');
 
 /**
  * 

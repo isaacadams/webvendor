@@ -15,4 +15,4 @@ class PackageDefinition {
     }
 }
 
-exports.PackageDefinition = PackageDefinition;
+module.exports = PackageDefinition;
