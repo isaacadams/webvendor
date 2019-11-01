@@ -12,9 +12,11 @@ class FontAwesomePackage {
         this.definition = new PackageDefinition(
             'font-awesome', 
             [
-                "all.css", // could be replaced with all.js
+                /* "all.css", // could be replaced with all.js
                 "/svgs/*",
-                "/webfonts/*"
+                "/webfonts/*" */
+                "**/font-awesome.min.css",
+                "**/fonts/*"
             ]
         );
 

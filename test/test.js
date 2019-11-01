@@ -6,6 +6,6 @@ let opts = {
     output: path.resolve(process.cwd(), "wwwroot")
 };
 webpackager(opts)
-    .addBootstrap()
     .addFontAwesome()
+    .addBootstrap()
     .deploy();

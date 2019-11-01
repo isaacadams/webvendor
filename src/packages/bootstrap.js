@@ -16,8 +16,8 @@ class BootstrapPackage {
         this.definition = new PackageDefinition(
             'bootstrap', 
             [
-                "bootstrap.min.css",
-                "bootstrap.bundle.min.js"
+                "**/bootstrap.min.css",
+                "**/bootstrap.bundle.min.js"
             ]
         );
 

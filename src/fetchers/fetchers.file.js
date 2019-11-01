@@ -13,14 +13,17 @@ class FileFetcher {
      */
     fetchPackage(pkg){
         let pkgFolder = this.pkgJson.searchNodeModules(pkg.name).replace(/\\/g, '/');
-        let pat = `${pkgFolder}/**/*(${pkg.files.join("|")})`;
+        let pat = `${pkgFolder}/{${pkg.files.join(",")}}`;
         console.log(pkg.name);
         console.log(pat);
         return new Promise((res, rej) => {
-            glob(pat, (e, files) => {
-                if(e) rej(e);
-                res(files);
-            });
+            glob(
+                pat,
+                (e, files) => {
+                    if(e) rej(e);
+                    console.log(files);
+                    res(files);
+                });
         });
     }
 }
