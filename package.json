@@ -1,6 +1,6 @@
 {
   "name": "webpackager",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a simple web package dependency helper that simplifies the process of adding project dependencies like bootstrap or fontawesome",
   "main": "index.js",
   "scripts": {
