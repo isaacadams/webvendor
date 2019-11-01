@@ -8,10 +8,10 @@ class PackageDefinition {
         this.dependencies = [];
     }
     /**
-     * @param {PackageDefinition} package
+     * @param {PackageDefinition} pkg add a package dependency to this package defintion
      */
-    addDependency(package) {
-        this.dependencies.push(package);
+    addDependency(pkg) {
+        this.dependencies.push(pkg);
     }
 }
 
