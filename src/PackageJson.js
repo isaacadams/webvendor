@@ -1,5 +1,4 @@
-let path = require('path'),
-    fs = require('fs');
+let { fs, path } = require('./../libraries');
 
 class PackageJson {
     constructor() {

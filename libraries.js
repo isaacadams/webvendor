@@ -1,15 +1,13 @@
-let r = require;
-
 module.exports = {
-    fs: r("fs"),
-    path: r('path'),
-    process: r('child_process'),
-    gulp: r('gulp'),
-    babel: r("gulp-babel"),
-    concat: r('gulp-concat'),
-    terser: r('gulp-terser'),
-    rimraf: r("rimraf"),
-    glob: r('glob'),
-    merge: r('merge-stream'),
-    eventstream: r('event-stream')
+    fs: require("fs"),
+    path: require('path'),
+    process: require('child_process'),
+    gulp: require('gulp'),
+    babel: require("gulp-babel"),
+    concat: require('gulp-concat'),
+    terser: require('gulp-terser'),
+    rimraf: require("rimraf"),
+    glob: require('glob'),
+    merge: require('merge-stream'),
+    eventstream: require('event-stream')
 };

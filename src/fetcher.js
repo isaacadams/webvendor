@@ -1,5 +1,4 @@
-let path = require('path'),
-    fs = require('fs'),
+let { fs, path, glob } = require('./../libraries'),
     { PackageJson } = require("./PackageJson");
     //{ Options } = require('./models/Options'),
     //{ PackageDefinition } = require('./models/PackageDefinition');
