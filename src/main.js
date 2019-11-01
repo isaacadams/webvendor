@@ -1,10 +1,13 @@
 let BootstrapPackage = require('./packages/bootstrap'),
-fontawesome = require('./packages/fontawesome'),
-OptionsValidator = require('./OptionsValidator');
+    fontawesome = require('./packages/fontawesome'),
+    OptionsValidator = require('./OptionsValidator'),
+    { PackageDefinition } = require('./models/models.module'),
+    PackageDeployer = require('./PackageDeployer');
 
 class webpackager {
-    constructor(options) {
+    constructor(options) {        
         this.opts = new OptionsValidator().process(options);
+        /** @type {PackageDefinition[]} */
         this.packages = [];
     }
 
@@ -12,8 +15,13 @@ class webpackager {
         this.packages.push(p);
     }
 
-    fetch() {
+    deploy() {
+        let publicOutputFolder = this.opts.output;
+        let deployer = new PackageDeployer();
 
+        this.packages.map(p => {
+            deployer.deploy(p, publicOutputFolder);
+        });
     }
 }
 
