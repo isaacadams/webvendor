@@ -6,7 +6,8 @@ let { PackageDefinition } = require('../models/PackageDefinition');
  * Bootstrap dependency information
  * https://getbootstrap.com/docs/4.0/getting-started/contents/#css-files
  * 
- * 
+ * bootstrap.bundle.min.js includes popper.js
+ * adding in jquery dependency will be optional
  */
 
 class BootstrapPackage {
@@ -19,10 +20,6 @@ class BootstrapPackage {
                 "bootstrap.bundle.min.js"
             ]
         );
-        /* let package = packageBuilder('bootstrap', [
-            packageBuilder('popper.js', ''),
-            packageBuilder('jquery', '')
-        ]);  */
 
         this.api = {
             includeJquery: function() {
