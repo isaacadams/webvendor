@@ -12,8 +12,10 @@ class FontAwesomePackage {
         
         this.definition = 
             new PackageBuilder('font-awesome')
-                .addFiles(["**/font-awesome.min.css"])
-                .addFiles(["**/fonts/*"], "fonts")
+                .addFiles([
+                    "**/fonts/*",
+                    "**/font-awesome.min.css" // add this to same folder since it targets fonts at ../fonts/font_files
+                ], "fonts")
                 .build();
 
         this.api = {}
