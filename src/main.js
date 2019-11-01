@@ -31,8 +31,9 @@ module.exports = function(options) {
     return {
         addBootstrap: function(){
             let bs = new BootstrapPackage();
-            wp.add(bs);
-            return bs.api;
+            wp.add(bs.definition);
+            //return bs.api;
+            return wp;
         },
         addFontAwesome: function(){
 

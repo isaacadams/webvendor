@@ -11,7 +11,7 @@ class PackageDeployer {
         let pkgDirectory = path.resolve(output, pkg.name);
         let fetcher = new FileFetcher();
         fetcher
-            .fetchPackage(p)
+            .fetchPackage(pkg)
             .then(mainPkgFiles => {
                 mainPkgFiles.map(f => this.copy(f, pkgDirectory));
             });
@@ -20,23 +20,39 @@ class PackageDeployer {
     }
     /**
      * Copy a file from one directory to another
-     * @param {string} file the full path to the file desired to be copied
+     * @param {string} pathToFile the full path to the file desired to be copied
      * @param {string} toDirectory the full path to the directory for which the file should be copied
      */
-    copy(file, toDirectory) {
+    copy(pathToFile, toDirectory) {
+        let filename = path.basename(pathToFile);
+        let newFilePath = path.resolve(toDirectory, filename);
+        
         return new Promise((res, rej) => {
-            //gets file name and adds it to dir2
-            var f = path.basename(file);
-            let newFilePath = path.resolve(toDirectory, f);
+            this.mkdir(toDirectory);
+
             var dest = fs.createWriteStream(newFilePath);
-            fs.createReadStream(file)
-                .pipe(dest)
-                .on('end', () => res())
-                .on('error', e => {
-                    console.error(e);
-                    rej(e);
-                });
+                fs.createReadStream(pathToFile)
+                    .pipe(dest)
+                    .on('end', () => res())
+                    .on('error', e => {
+                        console.error(e);
+                        rej(e);
+                    });
         });
+    }
+
+    mkdir(path, root = '') {
+        path = path.replace(/\\/g, "/");
+
+        let dirs = path.split('/'), 
+            dir = dirs.shift();
+            
+        root = root + dir + '/';
+    
+        if(!fs.existsSync(root))
+            fs.mkdirSync(root);
+    
+        return !dirs.length || this.mkdir(dirs.join('/'), root);
     }
 }
 
