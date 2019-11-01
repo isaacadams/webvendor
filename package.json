@@ -8,7 +8,6 @@
   },
   "devDependencies": {
     "@isaacadams/nodejs-utils": "0.2.0",
-    "@types/node": "^12.12.3",
     "event-stream": "4.0.1",
     "glob": "7.1.5",
     "gulp": "^4.0.2",
