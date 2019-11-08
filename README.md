@@ -1,5 +1,5 @@
 # Web Vendor Manager
-a lightweight task oriented manager that will manage // install web vendors into your application in a few lines of code
+a task oriented manager that will manage // install web vendors into your application in a few lines of code
 
 
 ## USAGE
