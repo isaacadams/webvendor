@@ -1,6 +1,6 @@
 {
   "name": "@isaacadams/webvendor",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "a simple web vendor manager that simplifies the process of adding project dependencies like bootstrap or fontawesome",
   "main": "src/main.js",
   "scripts": {
