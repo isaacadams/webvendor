@@ -6,7 +6,7 @@
   "scripts": {
     "test": ""
   },
-  "devDependencies": {
+  "dependencies": {
     "@isaacadams/nodejs-utils": "0.2.0",
     "event-stream": "4.0.1",
     "glob": "7.1.5",
