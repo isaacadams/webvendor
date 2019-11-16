@@ -10,7 +10,7 @@ class PackageDeployer {
      */
     deploy(pkg, output) {
         let pkgDirectory = path.resolve(output, pkg.name);
-
+        let self = this;
         if(!fs.existsSync(pkgDirectory)){
             performDeployment();
             return;    
@@ -23,6 +23,7 @@ class PackageDeployer {
 
         function performDeployment(){
             let fetcher = new FileFetcher();
+            
             fetcher
                 .fetchPackage(pkg)
                 .then(filesSystem => {
@@ -33,11 +34,11 @@ class PackageDeployer {
                      */                
                     filesSystem.map(s => {
                         let pathToOutput = path.resolve(pkgDirectory, s.folder);
-                        s.files.map(f => this.copy(f, pathToOutput));
+                        s.files.map(f => self.copy(f, pathToOutput));
                     });
                 });
             if (pkg.dependencies.length > 0)
-                pkg.dependencies.map(d => this.deploy(d, pkgDirectory));
+                pkg.dependencies.map(d => self.deploy(d, pkgDirectory));
         }
     }
     /**
