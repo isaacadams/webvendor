@@ -1,4 +1,4 @@
-let PackageBuilder = require('../builders/packageBuilder');
+import { PackageBuilder } from '../builders/packageBuilder';
 
 /**
  * Fontawesome dependency information
@@ -6,7 +6,7 @@ let PackageBuilder = require('../builders/packageBuilder');
  * 
  */
 
-class FontAwesomePackage {
+export class FontAwesomePackage {
     constructor() {
         this.repository = 'https://github.com/FortAwesome/Font-Awesome';
         
@@ -21,6 +21,3 @@ class FontAwesomePackage {
         this.api = {}
     }
 }
-
-
-module.exports = FontAwesomePackage;

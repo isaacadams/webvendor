@@ -1,8 +1,11 @@
-let { fs, path, glob } = require('./../../libraries'),
-    { PackageJson } = require("./../PackageJson"),
-    { PackageDefinition } = require('../models/models.module');
+import * as fs from 'fs';
+import * as path from 'path';
+//import * as glob from 'glob';
+let glob = require('glob');
+import { PackageJson } from "./../PackageJson";
+import { PackageDefinition } from '../models';
 
-class FileFetcher {
+export class FileFetcher {
     constructor() {
         this.pkgJson = new PackageJson();
     }
@@ -23,6 +26,8 @@ class FileFetcher {
                 .all(promises)
                 .then(o => {
                     res(o);
+                }).catch(e => {
+                    console.log(e);
                 });
         });
     }
@@ -55,8 +60,6 @@ function searchForGlob(s, pkgFolder){
 function cleanPaths(path){
     return path.replace(/\\/g, '/');
 }
-
-module.exports = FileFetcher;
 
 function test(){
     let g = new PackageDefinition('glob', ['*.js', 'README.md', 'change*']);

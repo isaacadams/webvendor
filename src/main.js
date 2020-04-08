@@ -1,10 +1,11 @@
-let BootstrapPackage = require('./packages/bootstrap'),
-    FontAwesomePackage = require('./packages/fontawesome'),
-    OptionsValidator = require('./OptionsValidator'),
-    { PackageDefinition } = require('./models/models.module'),
-    PackageDeployer = require('./PackageDeployer');
+import { BootstrapPackage } from './packages/bootstrap';
+import { FontAwesomePackage } from './packages/fontawesome';
+import { OptionsValidator } from './OptionsValidator';
+import { PackageDefinition } from './models';
+import { PackageDeployer } from './PackageDeployer';
 
-class WebVendorLogic {
+export class WebVendorLogic {
+
     constructor(options) {
         this.opts = new OptionsValidator().process(options);        
         /** @type {PackageDefinition[]} */
@@ -24,27 +25,31 @@ class WebVendorLogic {
     }
 }
 
-module.exports = function webvendor(options) {
-    class WebVendorAPI {
+export class WebVendorAPI {
 
-        addBootstrap (){
-            let bs = new BootstrapPackage();
-            wpl.add(bs.definition);
-            //return bs.api;
-            return this;
-        }
-        
-        addFontAwesome () {
-            let fa = new FontAwesomePackage();
-            wpl.add(fa.definition);
-            return this;
-        }
-    
-        deploy() {
-            wpl.deploy();
-        }
+    constructor(logic) {
+        this.logic = logic;
     }
 
+    addBootstrap (){
+        let bs = new BootstrapPackage();
+        this.logic.add(bs.definition);
+        //return bs.api;
+        return this;
+    }
+    
+    addFontAwesome () {
+        let fa = new FontAwesomePackage();
+        this.logic.add(fa.definition);
+        return this;
+    }
+
+    deploy() {
+        this.logic.deploy();
+    }
+}
+
+export function webvendor(options) {
     let wpl = new WebVendorLogic(options);
-    return new WebVendorAPI();
-};
+    return new WebVendorAPI(wpl);
+}

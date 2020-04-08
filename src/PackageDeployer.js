@@ -1,8 +1,13 @@
-let { fs, path, rimraf } = require('./../libraries'),
-    { PackageDefinition } = require('./models/models.module'),
-    { FileFetcher } = require('./fetchers/fetchers.module');
+import * as fs from 'fs';
+import * as path from 'path';
+//import * as rimraf from 'rimraf';
+import 'rimraf';
 
-class PackageDeployer {
+
+import { PackageDefinition } from './models/index.ts';
+import { FileFetcher } from './fetchers/fetchers.file';
+
+export class PackageDeployer {
     /**
      * Deploy a package from node_modules to the specified directory
      * @param {PackageDefinition} pkg package to deploy
@@ -17,7 +22,7 @@ class PackageDeployer {
         }
 
         // if the directory pre-exists, then clean it before deploying
-        rimraf(pkgDirectory, e => {
+        rimraf.default(pkgDirectory, e => {
             performDeployment();
         });
 
@@ -78,5 +83,3 @@ class PackageDeployer {
         return !dirs.length || this.mkdir(dirs.join('/'), root);
     }
 }
-
-module.exports = PackageDeployer;

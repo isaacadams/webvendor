@@ -1,4 +1,4 @@
-module.exports = {
+export default libraries = {
     fs: require("fs"),
     path: require('path'),
     process: require('child_process'),

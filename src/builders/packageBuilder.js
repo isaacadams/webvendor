@@ -1,6 +1,6 @@
-let { PackageDefinition, GlobsOrganizer } = require('../models/models.module');
+import { PackageDefinition, GlobsOrganizer } from './../models';
 
-class PackageBuilder {
+export class PackageBuilder {
         
     constructor(name) {
         this.main = new PackageDefinition(name);
@@ -44,5 +44,3 @@ class PackageBuilder {
         return this.main;
     }
 }
-
-module.exports = PackageBuilder;

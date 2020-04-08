@@ -1,6 +1,7 @@
-let { fs, path } = require('./../libraries');
+import * as fs from 'fs';
+import * as path from 'path';
 
-class PackageJson {
+export class PackageJson {
     constructor() {
         this.path = PackageJson.find();
         this.json = JSON.parse(fs.readFileSync(this.path));
@@ -44,5 +45,3 @@ class PackageJson {
         }
     }
 }
-
-exports.PackageJson = PackageJson;

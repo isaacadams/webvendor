@@ -1,4 +1,7 @@
-let { gulp, merge, rimraf } = require('./libraries');
+let { merge, rimraf } = require('./libraries');
+import * as gulp from 'gulp';
+
+
 
 let e = module.exports;
 

@@ -1,5 +1,9 @@
-class OptionsMetadata {
-    constructor(name, required, definition = '') {
+export class OptionsMetadata {
+    name: string;
+    required: boolean;
+    definition: string;
+
+    constructor(name: string, required: boolean, definition = '') {
         /** @type {string} name of the option */
         this.name = name;
         /** @type {boolean} true if option is required */
@@ -8,5 +12,3 @@ class OptionsMetadata {
         this.definition = definition;
     }
 }
-
-module.exports = OptionsMetadata;

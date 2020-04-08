@@ -1,6 +1,6 @@
-let { OptionsMetadata, Options } = require('./models/models.module');
+import { OptionsMetadata, Options } from './models';
 
-class OptionsValidator {
+export class OptionsValidator {
     constructor() {
         /** @type {OptionsMetadata[]} */
         this.metadata = [
@@ -56,5 +56,3 @@ function checkRequiredOpts(config, opts) {
 
     throw new Error(`${config.name} is required`);
 }
-
-module.exports = OptionsValidator;

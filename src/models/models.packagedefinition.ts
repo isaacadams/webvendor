@@ -1,10 +1,11 @@
-let GlobsOrganizer = require('./models.globsorganizer');
+import { GlobsOrganizer } from './index';
 
-class PackageDefinition {
-    /**
-     * @param {string} name the name of the package
-     */
-    constructor(name) {
+export class PackageDefinition {
+    name: string;
+    filesystem: GlobsOrganizer[];
+    dependencies: PackageDefinition[];
+
+    constructor(name: string) {
         /** @type {string} the name of the package */
         this.name = name;
         /** @type {GlobsOrganizer[]} the files that makeup the package */
@@ -15,7 +16,7 @@ class PackageDefinition {
     /**
      * @param {PackageDefinition} pkg add a package dependency to this package defintion
      */
-    addDependency(pkg) {
+    addDependency(pkg: PackageDefinition) {
         this.dependencies.push(pkg);
     }
 
@@ -23,7 +24,7 @@ class PackageDefinition {
      * 
      * @param {GlobsOrganizer} files add a filesystem to the package
      */
-    addGlobsOrganizer(files) {
+    addGlobsOrganizer(files: GlobsOrganizer) {
         this.filesystem.push(files);
     }
 
@@ -36,5 +37,3 @@ class PackageDefinition {
         return globs;
     }
 }
-
-module.exports = PackageDefinition;

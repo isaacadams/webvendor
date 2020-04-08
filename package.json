@@ -2,14 +2,23 @@
   "name": "@isaacadams/webvendor",
   "version": "0.4.0",
   "description": "a simple web vendor manager that simplifies the process of adding project dependencies like bootstrap or fontawesome",
-  "main": "src/main.js",
+  "main": "dist/src/main.js",
+  "types": "dist/src/main.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": ""
+    "prepack": "npm run build",
+    "test": "",
+    "build": "tsc"
   },
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "@isaacadams/nodejs-utils": "0.2.0",
+    "@types/glob": "^7.1.1",
+    "glob": "7.1.6",
     "event-stream": "4.0.1",
-    "glob": "7.1.5",
     "gulp": "^4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-concat": "^2.6.1",
@@ -27,5 +36,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/isaacadams/webvendor.git"
+  },
+  "devDependencies": {
+    "@types/node": "^13.11.1",
+    "@types/rimraf": "^3.0.0",
+    "typescript": "^3.8.3"
   }
 }

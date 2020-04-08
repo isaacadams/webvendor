@@ -1,4 +1,4 @@
-let PackageBuilder = require('../builders/packageBuilder');
+import { PackageBuilder } from '../builders/packageBuilder';
 
 /**
  * Bootstrap dependency information
@@ -8,7 +8,7 @@ let PackageBuilder = require('../builders/packageBuilder');
  * adding in jquery dependency will be optional
  */
 
-class BootstrapPackage {
+export class BootstrapPackage {
     constructor() {
         this.repository = 'https://github.com/twbs/bootstrap';
         
@@ -30,6 +30,3 @@ class BootstrapPackage {
         }
     }
 }
-
-
-module.exports = BootstrapPackage;
