@@ -1,11 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-//import * as rimraf from 'rimraf';
-import 'rimraf';
 
 
 import { PackageDefinition } from './models/index.ts';
 import { FileFetcher } from './fetchers/fetchers.file';
+import rimraf from 'rimraf';
 
 export class PackageDeployer {
     /**
@@ -22,7 +21,7 @@ export class PackageDeployer {
         }
 
         // if the directory pre-exists, then clean it before deploying
-        rimraf.default(pkgDirectory, e => {
+        rimraf(pkgDirectory, e => {
             performDeployment();
         });
 
