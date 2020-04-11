@@ -4,7 +4,8 @@ let {webvendor} = require('../dist/main'),
 
 let opts = {
     html: "Hello World",
-    output: path.resolve(process.cwd(), "wwwroot")
+    //process.cwd()
+    output: path.resolve(__dirname, "wwwroot")
 };
 
 console.log(webvendor);

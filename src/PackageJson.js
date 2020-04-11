@@ -3,11 +3,17 @@ import * as path from 'path';
 
 export class PackageJson {
     constructor() {
-        this.path = PackageJson.find();
+        //this.path = PackageJson.find();
+        //this.json = JSON.parse(fs.readFileSync(this.path));
+        //this.root = path.resolve(this.path, "../");
+        //this.node_modules = path.resolve(this.root, "node_modules");
+
+        this.root = process.mainModule.path;
+        this.path = path.resolve(this.root, "package.json");
         this.json = JSON.parse(fs.readFileSync(this.path));
-        this.root = path.resolve(this.path, "../");
         this.node_modules = path.resolve(this.root, "node_modules");
     }
+    
     searchNodeModules(packageName) {
         let packageDirectory = path.resolve(this.node_modules, packageName);
         let exists = fs.existsSync(packageDirectory);
@@ -15,7 +21,10 @@ export class PackageJson {
             throw new Error(`Coult not find ${packageName} in ${this.node_modules}`);
         return packageDirectory;
     }
+
+    // find what? its meant to find the path to root module's package.json
     static find() {
+        console.log(process.mainModule.path);
         let cwd = process.cwd();
         let currentDirectory = stripOutParentsToIgnore(cwd);
         let packageJsonFilePath;
