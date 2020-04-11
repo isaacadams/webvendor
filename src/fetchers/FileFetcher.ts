@@ -1,11 +1,10 @@
-import * as fs from 'fs';
-import * as path from 'path';
-//import * as glob from 'glob';
-let glob = require('glob');
-import { PackageJson } from "./../PackageJson";
-import { PackageDefinition } from '../models';
+import glob from 'glob';
+import { PackageJson } from "../PackageJson";
+import { PackageDefinition, GlobsOrganizer } from '../models';
 
 export class FileFetcher {
+    pkgJson: PackageJson;
+
     constructor() {
         this.pkgJson = new PackageJson();
     }
@@ -14,7 +13,7 @@ export class FileFetcher {
      * fetch the files defined in the package definition
      * @param {PackageDefinition} pkg 
      */
-    fetchPackage(pkg){
+    fetchPackage(pkg: PackageDefinition): Promise<IGlobSearch[]> {
         console.log(`fetching ${pkg.name}...`);
         let pkgFolder = cleanPaths(this.pkgJson.searchNodeModules(pkg.name));
         return new Promise((res, rej) => {
@@ -33,14 +32,21 @@ export class FileFetcher {
     }
 }
 
-function searchForGlob(s, pkgFolder){
+interface IGlobSearch {
+    folder: string,
+    files: string[]
+}
+
+function searchForGlob(s: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
     return new Promise((res, rej) => {
-        let globs = s.globs.map(g => cleanPaths(g));
+        let globs: string[] = s.globs.map(g => cleanPaths(g));
         let hasMultiple = globs.length > 1;
-        globs = globs.join(",");
-        globs = hasMultiple ? `{${globs}}` : globs;        
-        let pat = `${pkgFolder}/${globs}`;
+        
+        let pat = globs.join(",");
+        pat = hasMultiple ? `{${pat}}` : pat;      
+        pat = `${pkgFolder}/${pat}`;
         console.log(`searching for glob: ${pat}`);
+
         glob(
             pat,
             (e, files) => { 
@@ -57,15 +63,15 @@ function searchForGlob(s, pkgFolder){
     });
 }
 
-function cleanPaths(path){
+function cleanPaths(path: string) {
     return path.replace(/\\/g, '/');
 }
 
-function test(){
+/* function test(){
     let g = new PackageDefinition('glob', ['*.js', 'README.md', 'change*']);
     new FileFetcher()
         .fetchPackage(g)
         .then(f => console.log(f));
 }
-
+ */
 //test();

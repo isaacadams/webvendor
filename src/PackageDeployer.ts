@@ -1,10 +1,9 @@
-import * as fs from 'fs';
+import fs from 'fs';
 import * as path from 'path';
-
-
-import { PackageDefinition } from './models/index.ts';
-import { FileFetcher } from './fetchers/fetchers.file';
+import '@isaacadams/extensions';
+import { FileFetcher } from './fetchers/FileFetcher';
 import rimraf from 'rimraf';
+import { PackageDefinition } from './models';
 
 export class PackageDeployer {
     /**
@@ -12,7 +11,7 @@ export class PackageDeployer {
      * @param {PackageDefinition} pkg package to deploy
      * @param {string} output path to deploy package
      */
-    deploy(pkg, output) {
+    deploy(pkg: PackageDefinition, output: string) {
         let pkgDirectory = path.resolve(output, pkg.name);
         let self = this;
         if(!fs.existsSync(pkgDirectory)){
@@ -50,35 +49,22 @@ export class PackageDeployer {
      * @param {string} pathToFile the full path to the file desired to be copied
      * @param {string} toDirectory the full path to the directory for which the file should be copied
      */
-    copy(pathToFile, toDirectory) {
+    copy(pathToFile: string, toDirectory: string) {
         let filename = path.basename(pathToFile);
         let newFilePath = path.resolve(toDirectory, filename);
         
         return new Promise((res, rej) => {
-            this.mkdir(toDirectory);
+            fs.ensureDirectoryExists(toDirectory, '');
+            
 
             var dest = fs.createWriteStream(newFilePath);
-                fs.createReadStream(pathToFile)
-                    .pipe(dest)
-                    .on('end', () => res())
-                    .on('error', e => {
-                        console.error(e);
-                        rej(e);
-                    });
+            fs.createReadStream(pathToFile)
+                .pipe(dest)
+                .on('end', () => res())
+                .on('error', e => {
+                    console.error(e);
+                    rej(e);
+                });
         });
-    }
-
-    mkdir(path, root = '') {
-        path = path.replace(/\\/g, "/");
-
-        let dirs = path.split('/'), 
-            dir = dirs.shift();
-            
-        root = root + dir + '/';
-    
-        if(!fs.existsSync(root))
-            fs.mkdirSync(root);
-    
-        return !dirs.length || this.mkdir(dirs.join('/'), root);
     }
 }

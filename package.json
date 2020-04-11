@@ -38,6 +38,7 @@
     "url": "https://github.com/isaacadams/webvendor.git"
   },
   "devDependencies": {
+    "@isaacadams/extensions": "^1.1.0",
     "@types/node": "^13.11.1",
     "@types/rimraf": "^3.0.0",
     "typescript": "^3.8.3"
