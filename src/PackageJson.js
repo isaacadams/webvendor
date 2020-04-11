@@ -13,12 +13,14 @@ export class PackageJson {
         this.json = JSON.parse(fs.readFileSync(this.path));
         this.node_modules = path.resolve(this.root, "node_modules");
     }
-    
+
     searchNodeModules(packageName) {
         let packageDirectory = path.resolve(this.node_modules, packageName);
         let exists = fs.existsSync(packageDirectory);
-        if (!exists)
-            throw new Error(`Coult not find ${packageName} in ${this.node_modules}`);
+        
+        // could do an autoinstall here
+        if (!exists) throw new Error(`Coult not find ${packageName} in ${this.node_modules}`);
+
         return packageDirectory;
     }
 
@@ -28,8 +30,7 @@ export class PackageJson {
         let cwd = process.cwd();
         let currentDirectory = stripOutParentsToIgnore(cwd);
         let packageJsonFilePath;
-        while (!doesFileLiveUnderneath(currentDirectory))
-            currentDirectory += "/..";
+        while (!doesFileLiveUnderneath(currentDirectory)) currentDirectory += "/..";
         //console.log('found: ' + packageJsonFilePath);
         return packageJsonFilePath;
         function stripOutParentsToIgnore(cwd) {
