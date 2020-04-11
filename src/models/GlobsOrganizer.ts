@@ -1,11 +1,7 @@
 export class GlobsOrganizer {
-    ///globs for files to grab
+    /// globs for files to grab
     globs: string[];
-    /**
-     * @type {string}
-     * folder to place matched files underneath
-     * will be placed in root if none specified
-     */
+    /// destination folder for the files, default is to place them in the root
     folder: string;
 
     constructor(globs: string[], folder: string = '') {
