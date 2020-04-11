@@ -1,4 +1,4 @@
-import { PackageDefinition } from "./models.packagedefinition";
+import { PackageDefinition } from "./PackageDefinition";
 
 export class State {
     hasPackageJson: boolean;
