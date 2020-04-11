@@ -13,8 +13,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "@isaacadams/nodejs-utils": "0.2.0",
     "@types/glob": "^7.1.1",
     "glob": "7.1.6",
@@ -25,7 +25,7 @@
     "gulp-strip-comments": "2.5.2",
     "gulp-terser": "1.2.0",
     "merge-stream": "2.0.0",
-    "rimraf": "3.0.0"
+    "rimraf": "3.0.2"
   },
   "author": "Isaac Adams",
   "license": "MIT",
