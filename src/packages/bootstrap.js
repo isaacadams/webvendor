@@ -1,4 +1,4 @@
-import { PackageBuilder } from '../builders/packageBuilder';
+import { PackageBuilder } from '../builders/PackageBuilder';
 
 /**
  * Bootstrap dependency information
