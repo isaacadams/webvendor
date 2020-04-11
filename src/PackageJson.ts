@@ -2,38 +2,38 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export class PackageJson {
-    constructor() {
-        //this.path = PackageJson.find();
-        //this.json = JSON.parse(fs.readFileSync(this.path));
-        //this.root = path.resolve(this.path, "../");
-        //this.node_modules = path.resolve(this.root, "node_modules");
+    root: string;
+    path: string;
+    node_modules: string;
 
-        this.root = process.mainModule.path;
+    constructor() {
+        if(!process.mainModule) throw new Error(`Could not find the main module when executing '${process.argv.join(' ')}'`);
+        
+        this.root = path.parse(process.mainModule.filename).dir;
         this.path = path.resolve(this.root, "package.json");
-        this.json = JSON.parse(fs.readFileSync(this.path));
         this.node_modules = path.resolve(this.root, "node_modules");
     }
 
-    searchNodeModules(packageName) {
+    searchNodeModules(packageName: string): string {
         let packageDirectory = path.resolve(this.node_modules, packageName);
-        let exists = fs.existsSync(packageDirectory);
+        let packageDoesNotExistInNodeModules = !fs.existsSync(packageDirectory);
         
         // could do an autoinstall here
-        if (!exists) throw new Error(`Coult not find ${packageName} in ${this.node_modules}`);
+        if (packageDoesNotExistInNodeModules) throw new Error(`Coult not find ${packageName} in ${this.node_modules}`);
 
         return packageDirectory;
     }
 
     // find what? its meant to find the path to root module's package.json
     static find() {
-        console.log(process.mainModule.path);
+        //console.log(process.mainModule.path);
         let cwd = process.cwd();
         let currentDirectory = stripOutParentsToIgnore(cwd);
         let packageJsonFilePath;
         while (!doesFileLiveUnderneath(currentDirectory)) currentDirectory += "/..";
         //console.log('found: ' + packageJsonFilePath);
         return packageJsonFilePath;
-        function stripOutParentsToIgnore(cwd) {
+        function stripOutParentsToIgnore(cwd: string) {
             let ignoreParents = ["node_modules"];
             let dirs = cwd.split("\\");
             ignoreParents.map(p => {
@@ -47,7 +47,7 @@ export class PackageJson {
             //console.log(strippedDir);
             return strippedDir;
         }
-        function doesFileLiveUnderneath(dir) {
+        function doesFileLiveUnderneath(dir: string) {
             packageJsonFilePath = path.resolve(dir, "package.json");
             //console.log(packageJsonFilePath);
             let exists = fs.existsSync(packageJsonFilePath);
