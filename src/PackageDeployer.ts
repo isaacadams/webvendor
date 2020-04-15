@@ -1,5 +1,5 @@
 import fs from 'fs';
-import * as path from 'path';
+import path from 'path';
 import '@isaacadams/extensions';
 import { FileFetcher } from './fetchers/FileFetcher';
 import rimraf from 'rimraf';
@@ -35,6 +35,7 @@ export class PackageDeployer {
                      */                
                     filesSystem.forEach(s => {
                         let pathToOutput = path.resolve(targetDirectoryForPackage, s.folder);
+                        
                         s.files.forEach(f => fs.copy(f, pathToOutput));
                     });
                 });
