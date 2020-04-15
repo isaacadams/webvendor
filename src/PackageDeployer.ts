@@ -35,13 +35,13 @@ export class PackageDeployer {
                      * however, sometimes they need to be outputted to a subdirectory
                      * because of internal / relative references
                      */                
-                    filesSystem.map(s => {
+                    filesSystem.forEach(s => {
                         let pathToOutput = path.resolve(pkgDirectory, s.folder);
-                        s.files.map(f => self.copy(f, pathToOutput));
+                        s.files.forEach(f => self.copy(f, pathToOutput));
                     });
                 });
             if (pkg.dependencies.length > 0)
-                pkg.dependencies.map(d => self.deploy(d, pkgDirectory));
+                pkg.dependencies.forEach(d => self.deploy(d, pkgDirectory));
         }
     }
     /**
