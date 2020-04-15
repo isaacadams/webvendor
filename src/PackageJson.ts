@@ -23,35 +23,35 @@ export class PackageJson {
 
         return packageDirectory;
     }
+}
 
-    // find what? its meant to find the path to root module's package.json
-    static find() {
-        //console.log(process.mainModule.path);
-        let cwd = process.cwd();
-        let currentDirectory = stripOutParentsToIgnore(cwd);
-        let packageJsonFilePath;
-        while (!doesFileLiveUnderneath(currentDirectory)) currentDirectory += "/..";
-        //console.log('found: ' + packageJsonFilePath);
-        return packageJsonFilePath;
-        function stripOutParentsToIgnore(cwd: string) {
-            let ignoreParents = ["node_modules"];
-            let dirs = cwd.split("\\");
-            ignoreParents.map(p => {
-                let i = dirs.indexOf(p);
-                if (i < 0)
-                    return;
-                dirs = dirs.slice(0, i);
-            });
-            let strippedDir = dirs.join("\\");
-            //console.log(cwd);
-            //console.log(strippedDir);
-            return strippedDir;
-        }
-        function doesFileLiveUnderneath(dir: string) {
-            packageJsonFilePath = path.resolve(dir, "package.json");
-            //console.log(packageJsonFilePath);
-            let exists = fs.existsSync(packageJsonFilePath);
-            return exists;
-        }
+// find what? its meant to find the path to root module's package.json
+function find() {
+    //console.log(process.mainModule.path);
+    let cwd = process.cwd();
+    let currentDirectory = stripOutParentsToIgnore(cwd);
+    let packageJsonFilePath;
+    while (!doesFileLiveUnderneath(currentDirectory)) currentDirectory += "/..";
+    //console.log('found: ' + packageJsonFilePath);
+    return packageJsonFilePath;
+    function stripOutParentsToIgnore(cwd: string) {
+        let ignoreParents = ["node_modules"];
+        let dirs = cwd.split("\\");
+        ignoreParents.map(p => {
+            let i = dirs.indexOf(p);
+            if (i < 0)
+                return;
+            dirs = dirs.slice(0, i);
+        });
+        let strippedDir = dirs.join("\\");
+        //console.log(cwd);
+        //console.log(strippedDir);
+        return strippedDir;
+    }
+    function doesFileLiveUnderneath(dir: string) {
+        packageJsonFilePath = path.resolve(dir, "package.json");
+        //console.log(packageJsonFilePath);
+        let exists = fs.existsSync(packageJsonFilePath);
+        return exists;
     }
 }
