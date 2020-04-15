@@ -35,7 +35,7 @@ export class PackageDeployer {
                      */                
                     filesSystem.forEach(s => {
                         let pathToOutput = path.resolve(targetDirectoryForPackage, s.folder);
-                        s.files.forEach(f => self.copy(f, pathToOutput));
+                        s.files.forEach(f => fs.copy(f, pathToOutput));
                     });
                 });
 
@@ -43,28 +43,5 @@ export class PackageDeployer {
             if (pkg.dependencies.length > 0)
                 pkg.dependencies.forEach(d => self.deploy(d, targetDirectoryForPackage));
         }
-    }
-    /**
-     * Copy a file from one directory to another
-     * @param {string} pathToFile the full path to the file desired to be copied
-     * @param {string} toDirectory the full path to the directory for which the file should be copied
-     */
-    copy(pathToFile: string, toDirectory: string) {
-        let filename = path.basename(pathToFile);
-        let newFilePath = path.resolve(toDirectory, filename);
-        
-        return new Promise((res, rej) => {
-            fs.ensureDirectoryExists(toDirectory, '');
-            
-
-            var dest = fs.createWriteStream(newFilePath);
-            fs.createReadStream(pathToFile)
-                .pipe(dest)
-                .on('end', () => res())
-                .on('error', e => {
-                    console.error(e);
-                    rej(e);
-                });
-        });
     }
 }

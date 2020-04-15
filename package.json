@@ -17,8 +17,8 @@
     "@babel/preset-env": "^7.9.5",
     "@isaacadams/nodejs-utils": "0.2.0",
     "@types/glob": "^7.1.1",
-    "glob": "7.1.6",
     "event-stream": "4.0.1",
+    "glob": "7.1.6",
     "gulp": "^4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-concat": "^2.6.1",
@@ -38,7 +38,7 @@
     "url": "https://github.com/isaacadams/webvendor.git"
   },
   "devDependencies": {
-    "@isaacadams/extensions": "^1.1.0",
+    "@isaacadams/extensions": "1.1.1",
     "@types/node": "^13.11.1",
     "@types/rimraf": "^3.0.0",
     "typescript": "^3.8.3"
