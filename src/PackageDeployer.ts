@@ -12,22 +12,20 @@ export class PackageDeployer {
      * @param {string} output path to deploy package
      */
     deploy(pkg: PackageDefinition, output: string) {
-        let pkgDirectory = path.resolve(output, pkg.name);
+        let targetDirectoryForPackage = path.resolve(output, pkg.name);
         let self = this;
-        if(!fs.existsSync(pkgDirectory)){
+        if(!fs.existsSync(targetDirectoryForPackage)){
             performDeployment();
             return;    
         }
 
         // if the directory pre-exists, then clean it before deploying
-        rimraf(pkgDirectory, e => {
+        rimraf(targetDirectoryForPackage, e => {
             performDeployment();
         });
 
         function performDeployment(){
-            let fetcher = new FileFetcher();
-            
-            fetcher
+            new FileFetcher()
                 .fetchPackage(pkg)
                 .then(filesSystem => {
                     /**
@@ -36,12 +34,14 @@ export class PackageDeployer {
                      * because of internal / relative references
                      */                
                     filesSystem.forEach(s => {
-                        let pathToOutput = path.resolve(pkgDirectory, s.folder);
+                        let pathToOutput = path.resolve(targetDirectoryForPackage, s.folder);
                         s.files.forEach(f => self.copy(f, pathToOutput));
                     });
                 });
+
+            // handle deployment for package dependencies
             if (pkg.dependencies.length > 0)
-                pkg.dependencies.forEach(d => self.deploy(d, pkgDirectory));
+                pkg.dependencies.forEach(d => self.deploy(d, targetDirectoryForPackage));
         }
     }
     /**
