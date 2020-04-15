@@ -8,4 +8,31 @@ export class GlobsOrganizer {
         this.globs = globs;        
         this.folder = folder;
     }
+
+    toGlob() {
+        let pattern = this.globs.map(g => cleanPaths(g)).join(",");
+        
+        let isSingle = this.globs.length < 2;
+        if(isSingle) return pattern;
+
+        return `{${pattern}}`;
+    }
 }
+
+function cleanPaths(path: string) {
+    return path.replace(/\\/g, '/');
+}
+
+/* 
+interface ICanGetFiles {
+    GetFiles(pathToPlaceFiles: string): Promise<boolean>;
+}
+
+class FilesFromNodeModules implements ICanGetFiles {
+    constructor(files: string) {
+    }
+
+    GetFiles(pathToPlaceFiles: string): Promise<boolean> {
+        return null;
+    }
+} */

@@ -37,15 +37,10 @@ interface IGlobSearch {
     files: string[]
 }
 
-function searchForGlob({globs, folder}: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
+function searchForGlob(organizer: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
     return new Promise((res, rej) => {
-        globs = globs.map(g => cleanPaths(g));
-        
-        let hasMultiple = globs.length > 1;
-        
-        let pat = globs.join(",");
-        pat = hasMultiple ? `{${pat}}` : pat;      
-        pat = `${pkgFolder}/${pat}`;
+        let {folder} = organizer;
+        let pat = `${pkgFolder}/${organizer.toGlob()}`;
         console.log(`searching for glob: ${pat}`);
 
         glob(
@@ -67,12 +62,3 @@ function searchForGlob({globs, folder}: GlobsOrganizer, pkgFolder: string): Prom
 function cleanPaths(path: string) {
     return path.replace(/\\/g, '/');
 }
-
-/* function test(){
-    let g = new PackageDefinition('glob', ['*.js', 'README.md', 'change*']);
-    new FileFetcher()
-        .fetchPackage(g)
-        .then(f => console.log(f));
-}
- */
-//test();
