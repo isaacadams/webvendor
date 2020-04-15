@@ -37,9 +37,10 @@ interface IGlobSearch {
     files: string[]
 }
 
-function searchForGlob(s: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
+function searchForGlob({globs, folder}: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
     return new Promise((res, rej) => {
-        let globs: string[] = s.globs.map(g => cleanPaths(g));
+        globs = globs.map(g => cleanPaths(g));
+        
         let hasMultiple = globs.length > 1;
         
         let pat = globs.join(",");
@@ -55,7 +56,7 @@ function searchForGlob(s: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearc
                 
                 if(e) rej(e);
                 res({
-                    folder: s.folder,
+                    folder,
                     files                        
                 });
             }
