@@ -19,7 +19,7 @@ export class PackageJson {
         let packageDoesNotExistInNodeModules = !fs.existsSync(packageDirectory);
         
         // could do an autoinstall here
-        if (packageDoesNotExistInNodeModules) throw new Error(`Coult not find ${packageName} in ${this.node_modules}`);
+        if (packageDoesNotExistInNodeModules) throw new Error(`Could not find ${packageName} in ${this.node_modules}`);
 
         return packageDirectory;
     }
