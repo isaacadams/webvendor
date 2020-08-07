@@ -8,8 +8,6 @@ let opts = {
     output: path.resolve(__dirname, "wwwroot")
 };
 
-console.log(webvendor);
-
 webvendor(opts)
     .addFontAwesome()
     .addBootstrap()
