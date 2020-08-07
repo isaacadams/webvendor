@@ -1,4 +1,4 @@
-import { PackageDefinition, GlobsOrganizer } from '../models';
+import { PackageDefinition } from '../models';
 
 export class PackageBuilder {
     main: PackageDefinition;
@@ -8,8 +8,7 @@ export class PackageBuilder {
     }
 
     addFiles(globs: string[], folder: string = ''): PackageBuilder {
-        let o = new GlobsOrganizer(globs, folder);
-        this.main.addGlobsOrganizer(o);
+        this.main.addGlobs(globs, {deployToFolder: folder})
         return this;
     }
 

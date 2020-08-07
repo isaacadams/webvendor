@@ -1,7 +1,7 @@
 import path from 'path';
 import glob from 'glob';
 import { IFileResolver } from './IFileResolver';
-import { ToGlobPattern } from './GlobsOrganizer';
+import { ToGlobPattern } from "./ToGlobPattern";
 
 export class GlobsResolver implements IFileResolver {
     glob: string;

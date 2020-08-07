@@ -1,14 +1,26 @@
-import { GlobsOrganizer } from './index';
+import { Folder } from './Folder';
+import { GlobsResolver, IFileResolver } from './index';
+
+export interface IDeploymentInstructions {
+    config: IDeploymentConfig
+    resolver: IFileResolver;
+}
+
+export interface IDeploymentConfig {
+    deployToFolder: string;
+}
 
 export class PackageDefinition {
     name: string;
-    filesystem: GlobsOrganizer[];
+    //root: Folder;
     dependencies: PackageDefinition[];
+    instructions: IDeploymentInstructions[];
 
     constructor(name: string) {
         this.name = name;
-        this.filesystem = [];
         this.dependencies = [];
+
+        this.instructions = [];
     }
 
     /// add a package dependency to this definition
@@ -16,8 +28,11 @@ export class PackageDefinition {
         this.dependencies.push(pkg);
     }
 
-    /// add files to the package
-    addGlobsOrganizer(files: GlobsOrganizer) {
-        this.filesystem.push(files);
+    addGlobs(globs: string[], config: IDeploymentConfig) {
+        this.instructions.push({
+            config,
+            resolver: new GlobsResolver(globs)
+        });
     }
 }
+

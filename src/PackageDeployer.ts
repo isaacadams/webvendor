@@ -26,7 +26,7 @@ export class PackageDeployer {
 
         function performDeployment(){
             new FileFetcher()
-                .fetchPackage(pkg)
+                .fetchPackage(pkg.name, pkg.instructions)
                 .then(searchResults => {
                     /**
                      * most files will output directly to the package directory
