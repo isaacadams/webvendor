@@ -1,4 +1,9 @@
-class State {
+import { PackageDefinition } from "./PackageDefinition";
+
+export class State {
+    hasPackageJson: boolean;
+    packages: PackageDefinition[];
+    
     constructor() {
         /** @type {boolean} states whether project has a package.json */
         this.hasPackageJson = true;
@@ -6,5 +11,3 @@ class State {
         this.packages = [];
     }
 }
-
-module.exports = State;

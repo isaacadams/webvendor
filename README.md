@@ -49,3 +49,9 @@ dist/index.html
     <button class="btn btn-primary">I am bootstrapped!</button>
 </body>
 ```
+
+## Future Plans
+
+- inject html references for installed web vendors into index.html automatically
+- ability to add packages that aren't pre-defined
+- ability to optionally include jquery as a bootstrap dependency
