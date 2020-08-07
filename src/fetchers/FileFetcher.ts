@@ -1,6 +1,11 @@
 import glob from 'glob';
 import { PackageJson } from "../PackageJson";
-import { PackageDefinition, GlobsOrganizer, IDeploymentInstructions } from '../models';
+import { PackageDefinition, GlobsOrganizer, IDeploymentInstructions, GlobsResolver } from '../models';
+
+interface IGlobSearchResults {
+    deploymentFolder: string,
+    files: string[]
+}
 
 export class FileFetcher {
     pkgJson: PackageJson;
@@ -20,7 +25,14 @@ export class FileFetcher {
         return new Promise((res, rej) => {
 
             let promises = pkg.filesystem.map(organizer => {
-                return searchForGlob(organizer.folder, organizer.toGlob(), pkgFolder);
+                return new GlobsResolver(organizer.globs)
+                    .GetAbsoluteFilePaths(pkgFolder)
+                    .then(files => {
+                        return {
+                            deploymentFolder: organizer.folder,
+                            files
+                        };
+                    });
             });
 
             Promise
@@ -32,32 +44,6 @@ export class FileFetcher {
                 });
         });
     }
-}
-
-interface IGlobSearchResults {
-    deploymentFolder: string,
-    files: string[]
-}
-
-function searchForGlob(deploymentFolder: string, globPattern: string, pkgFolder: string): Promise<IGlobSearchResults> {
-    return new Promise((res, rej) => {
-        let pattern = `${pkgFolder}/${globPattern}`;
-        console.log(`searching for glob: ${pattern}`);
-
-        glob(
-            pattern,
-            (e, files) => { 
-                console.log('found the following:');
-                console.log(files);
-
-                if(e) rej(e);
-                res({
-                    deploymentFolder,
-                    files
-                });
-            }
-        );
-    });
 }
 
 function cleanPaths(path: string) {
