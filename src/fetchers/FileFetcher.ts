@@ -15,8 +15,10 @@ export class FileFetcher {
      */
     fetchPackage(pkg: PackageDefinition): Promise<IGlobSearch[]> {
         console.log(`fetching ${pkg.name}...`);
-        let pkgFolder = cleanPaths(this.pkgJson.searchNodeModules(pkg.name));
+        let pkgFolder = cleanPaths(this.pkgJson.resolvePackageNameToPath(pkg.name));
+
         return new Promise((res, rej) => {
+
             let promises = pkg.filesystem.map(s => {
                 return searchForGlob(s, pkgFolder);
             });
@@ -40,19 +42,19 @@ interface IGlobSearch {
 function searchForGlob(organizer: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
     return new Promise((res, rej) => {
         let {folder} = organizer;
-        let pat = `${pkgFolder}/${organizer.toGlob()}`;
-        console.log(`searching for glob: ${pat}`);
+        let pattern = `${pkgFolder}/${organizer.toGlob()}`;
+        console.log(`searching for glob: ${pattern}`);
 
         glob(
-            pat,
+            pattern,
             (e, files) => { 
-                console.log('found the following:');               
+                console.log('found the following:');
                 console.log(files);
-                
+
                 if(e) rej(e);
                 res({
                     folder,
-                    files                        
+                    files
                 });
             }
         );

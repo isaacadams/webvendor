@@ -1,6 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * @property {string} root the root of whatever project webvendor is being used
+ * @property {string} path path to package.json in the root project
+ * @property {string} node_modules path to the node_modules folder
+ */
 export class PackageJson {
     root: string;
     path: string;
@@ -8,13 +13,13 @@ export class PackageJson {
 
     constructor() {
         if(!process.mainModule) throw new Error(`Could not find the main module when executing '${process.argv.join(' ')}'`);
-        
+
         this.root = path.parse(process.mainModule.filename).dir;
         this.path = path.resolve(this.root, "package.json");
         this.node_modules = path.resolve(this.root, "node_modules");
     }
 
-    searchNodeModules(packageName: string): string {
+    resolvePackageNameToPath(packageName: string): string {
         let packageDirectory = path.resolve(this.node_modules, packageName);
         let packageDoesNotExistInNodeModules = !fs.existsSync(packageDirectory);
         
