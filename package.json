@@ -8,8 +8,8 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "npm run build",
-    "test": "npm run build && node test/test.js",
+    "prepack": "yarn build",
+    "test": "yarn build && node test/test.js",
     "build": "tsc"
   },
   "dependencies": {
