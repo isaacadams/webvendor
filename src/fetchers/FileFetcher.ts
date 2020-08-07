@@ -1,6 +1,6 @@
 import glob from 'glob';
 import { PackageJson } from "../PackageJson";
-import { PackageDefinition, GlobsOrganizer } from '../models';
+import { PackageDefinition, GlobsOrganizer, IDeploymentInstructions } from '../models';
 
 export class FileFetcher {
     pkgJson: PackageJson;
@@ -19,8 +19,8 @@ export class FileFetcher {
 
         return new Promise((res, rej) => {
 
-            let promises = pkg.filesystem.map(s => {
-                return searchForGlob(s, pkgFolder);
+            let promises = pkg.filesystem.map(organizer => {
+                return searchForGlob(organizer.folder, organizer.toGlob(), pkgFolder);
             });
 
             Promise
@@ -39,10 +39,9 @@ interface IGlobSearch {
     files: string[]
 }
 
-function searchForGlob(organizer: GlobsOrganizer, pkgFolder: string): Promise<IGlobSearch> {
+function searchForGlob(deploymentFolder: string, globPattern: string, pkgFolder: string): Promise<IGlobSearch> {
     return new Promise((res, rej) => {
-        let {folder} = organizer;
-        let pattern = `${pkgFolder}/${organizer.toGlob()}`;
+        let pattern = `${pkgFolder}/${globPattern}`;
         console.log(`searching for glob: ${pattern}`);
 
         glob(
@@ -53,7 +52,7 @@ function searchForGlob(organizer: GlobsOrganizer, pkgFolder: string): Promise<IG
 
                 if(e) rej(e);
                 res({
-                    folder,
+                    folder: deploymentFolder,
                     files
                 });
             }
