@@ -13,19 +13,9 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@isaacadams/nodejs-utils": "0.2.0",
-    "@types/glob": "^7.1.1",
-    "event-stream": "4.0.1",
     "glob": "7.1.6",
-    "gulp": "^4.0.2",
-    "gulp-babel": "8.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-strip-comments": "2.5.2",
-    "gulp-terser": "1.2.0",
-    "merge-stream": "2.0.0",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "@isaacadams/extensions": "1.1.1"
   },
   "author": "Isaac Adams",
   "license": "MIT",
@@ -38,9 +28,11 @@
     "url": "https://github.com/isaacadams/webvendor.git"
   },
   "devDependencies": {
-    "@isaacadams/extensions": "1.1.1",
     "@types/node": "^13.11.1",
     "@types/rimraf": "^3.0.0",
-    "typescript": "^3.8.3"
+    "@types/glob": "^7.1.1",
+    "typescript": "^3.8.3",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5"
   }
 }
