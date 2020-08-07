@@ -6,12 +6,6 @@ export class PackageBuilder {
     constructor(name: string) {
         this.main = new PackageDefinition(name);
     }
-    
-    /* addFiles(globs: string[]): PackageBuilder {
-        let o = new GlobsOrganizer(globs);
-        this.main.addGlobsOrganizer(o);
-        return this;
-    } */
 
     addFiles(globs: string[], folder: string = ''): PackageBuilder {
         let o = new GlobsOrganizer(globs, folder);
@@ -20,7 +14,7 @@ export class PackageBuilder {
     }
 
     addDependency(pkg: PackageDefinition): PackageBuilder {
-        this.main.addDependency(pkg); // used to be this.main.addGlobsOrganizer
+        this.main.addDependency(pkg);
         return this;
     }
 
