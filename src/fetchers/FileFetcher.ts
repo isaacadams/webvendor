@@ -1,4 +1,3 @@
-import glob from 'glob';
 import { PackageJson } from "../PackageJson";
 import { PackageDefinition, GlobsOrganizer, IDeploymentInstructions, GlobsResolver } from '../models';
 
@@ -22,27 +21,18 @@ export class FileFetcher {
         console.log(`fetching ${pkg.name}...`);
         let pkgFolder = cleanPaths(this.pkgJson.resolvePackageNameToPath(pkg.name));
 
-        return new Promise((res, rej) => {
-
-            let promises = pkg.filesystem.map(organizer => {
-                return new GlobsResolver(organizer.globs)
-                    .GetAbsoluteFilePaths(pkgFolder)
-                    .then(files => {
-                        return {
-                            deploymentFolder: organizer.folder,
-                            files
-                        };
-                    });
-            });
-
-            Promise
-                .all(promises)
-                .then(o => {
-                    res(o);
-                }).catch(e => {
-                    console.log(e);
+        let promises = pkg.filesystem.map(organizer => {
+            return new GlobsResolver(organizer.globs)
+                .GetAbsoluteFilePaths(pkgFolder)
+                .then(files => {
+                    return {
+                        deploymentFolder: organizer.folder,
+                        files
+                    };
                 });
         });
+
+        return Promise.all(promises);
     }
 }
 
