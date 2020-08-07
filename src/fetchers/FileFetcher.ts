@@ -13,7 +13,7 @@ export class FileFetcher {
      * fetch the files defined in the package definition
      * @param {PackageDefinition} pkg 
      */
-    fetchPackage(pkg: PackageDefinition): Promise<IGlobSearch[]> {
+    fetchPackage(pkg: PackageDefinition): Promise<IGlobSearchResults[]> {
         console.log(`fetching ${pkg.name}...`);
         let pkgFolder = cleanPaths(this.pkgJson.resolvePackageNameToPath(pkg.name));
 
@@ -34,12 +34,12 @@ export class FileFetcher {
     }
 }
 
-interface IGlobSearch {
-    folder: string,
+interface IGlobSearchResults {
+    deploymentFolder: string,
     files: string[]
 }
 
-function searchForGlob(deploymentFolder: string, globPattern: string, pkgFolder: string): Promise<IGlobSearch> {
+function searchForGlob(deploymentFolder: string, globPattern: string, pkgFolder: string): Promise<IGlobSearchResults> {
     return new Promise((res, rej) => {
         let pattern = `${pkgFolder}/${globPattern}`;
         console.log(`searching for glob: ${pattern}`);
@@ -52,7 +52,7 @@ function searchForGlob(deploymentFolder: string, globPattern: string, pkgFolder:
 
                 if(e) rej(e);
                 res({
-                    folder: deploymentFolder,
+                    deploymentFolder,
                     files
                 });
             }

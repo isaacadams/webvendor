@@ -27,14 +27,14 @@ export class PackageDeployer {
         function performDeployment(){
             new FileFetcher()
                 .fetchPackage(pkg)
-                .then(filesSystem => {
+                .then(searchResults => {
                     /**
                      * most files will output directly to the package directory
                      * however, sometimes they need to be outputted to a subdirectory
                      * because of internal / relative references
                      */                
-                    filesSystem.forEach(s => {
-                        let pathToOutput = path.resolve(targetDirectoryForPackage, s.folder);
+                    searchResults.forEach(s => {
+                        let pathToOutput = path.resolve(targetDirectoryForPackage, s.deploymentFolder);
                         
                         s.files.forEach(f => fs.copy(f, pathToOutput));
                     });
